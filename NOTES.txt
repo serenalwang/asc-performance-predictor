@@ -1,0 +1,1 @@
+To SSH into rugen 6 core server: ssh -i rugen lutongwang@rugen.eecs.harvard.edu

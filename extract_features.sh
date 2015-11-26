@@ -1,9 +1,13 @@
-#!/bin/bash 
+#!/bin/bash
+
+# Clear program text features from previous runs
 python program_text_features.py -c
 
-search_dir = programs
+# Directory containing the programs
+SEARCHDIR= programs
 
-for program in "$search_dir"/*
+# Extract features for each program
+for program in "$SEARCHDIR"/*
 do
   python program_text_features.py $program
 done
