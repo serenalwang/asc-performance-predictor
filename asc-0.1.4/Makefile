@@ -6,8 +6,9 @@ CFLAGS = -ggdb3 $(WFLAGS)
 LDFLAGS = -L .
 LDLIBS = -lasc -lssv -lfann -lgsl -lgslcblas -lcrypto -lgmp -lm
 BENCHMARKS = nops counter loop collatz factor 3sum warshall
-NPROGRAMS= 4
+NPROGRAMS= 5
 SERENAPROGRAMS = $(shell seq 1 ${NPROGRAMS})
+SERENAPROGRAMSDIR = serena-programs-processed
 
 ifeq ($(ASAN),1)
 CFLAGS += -fno-omit-frame-pointer -fsanitize=address
@@ -70,16 +71,16 @@ k-LDLIBS = -lc -lm
 
 serenaprograms: $(SERENAPROGRAMS) 
 
-%: serena-programs/crt0.s serena-programs/%.c
+%: $(SERENAPROGRAMSDIR)/crt0.s $(SERENAPROGRAMSDIR)/%.c
 	$(CC) $(strip $^ $(k-CPPFLAGS) $(k-CFLAGS) $(k-LDFLAGS) $(k-LDLIBS)) -o $@
 
-%: serena-programs/%.s
+%: $(SERENAPROGRAMSDIR)/%.s
 	$(CC) $(strip $^ $(k-CPPFLAGS) $(k-CFLAGS) $(k-LDFLAGS) $(k-LDLIBS)) -o $@
 
 clean:
 	$(RM) $(wildcard *.a *.o */*.o *.[ch]~ */*.[ch]~ *.so maps/parser.[ch] asc)
 
 mrproper: clean
-	$(RM) $(wildcard *.net *.train *.stdout *.log $(BENCHMARKS) $(SERENAPROGRAMS))
+	$(RM) $(wildcard *.net *.train *.stdout *.log *.csv $(BENCHMARKS) $(SERENAPROGRAMS))
 
 .PHONY: all debug release benchmarks serenaprograms clean mrproper
