@@ -30,6 +30,7 @@ def extract_flatprofile_features(flatprofile_string):
         if current_percent_time > highest_percent_time:
             highest_percent_time = current_percent_time
         function_times.append(float(data[2]))
+        function_calls.append(int(data[3]))
 
     total_time = np.sum(function_times)
     num_function_calls = np.sum(function_calls)
@@ -54,12 +55,13 @@ def extract_callgraph_features(callgraph_string):
     func_sep = "-----------------------------------------------"
     callgraph_funcs = callgraph_string.split(func_sep)
     for func in callgraph_funcs:
-        if len(func) == 1:
-            continue
+        func = func.strip()
         func_lines = func.split('\n')
         num_func_lines = len(func_lines)
         for i in range(num_func_lines):
             data = func_lines[i].split()
+            if len(data) < 1:
+                continue
             # Primary line
             if data[0][0] == '[':
                 called = data[4].split("+")
@@ -103,11 +105,17 @@ def extract_all_features(full_string):
 
     return flatprofile_features + callgraph_features
 
-# Write gprof features to outfile
-outfile = "gprof_features.csv"
-gprof_string = sys.stdin.read()
+gprof_string = ""
+infile = "6gprof.txt"
+with open(infile, 'rb') as f:
+    gprof_string = f.read()
+
+# gprof_string = sys.stdin.read()
 features = extract_all_features(gprof_string)
 print "features:", features
+
+# Write gprof features to outfile
+outfile = "gprof_features.csv"
 with open(outfile, 'ab') as csvfile:
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
