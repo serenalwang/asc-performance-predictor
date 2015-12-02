@@ -1,0 +1,7 @@
+Sunday 11/29:
+  grof features
+  Get LLVM features
+  All C programs built and running with ASC
+  More complicated model written
+  Bayes model working 
+
