@@ -6,9 +6,10 @@ CFLAGS = -ggdb3 $(WFLAGS)
 LDFLAGS = -L .
 LDLIBS = -lasc -lssv -lfann -lgsl -lgslcblas -lcrypto -lgmp -lm
 BENCHMARKS = nops counter loop collatz factor 3sum warshall
-NPROGRAMS= 1
-SERENAPROGRAMS = $(shell seq 1 ${NPROGRAMS})
-SERENAPROGRAMSDIR = serena-programs-processed
+#NPROGRAMS= 1
+SERENAPROGRAMS = collatz_serena random
+# $(# shell seq 1 ${# NPROGRAMS})
+SERENAPROGRAMSDIR = serena-programs-randomized
 
 ifeq ($(ASAN),1)
 CFLAGS += -fno-omit-frame-pointer -fsanitize=address
