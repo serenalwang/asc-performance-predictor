@@ -9,7 +9,7 @@
 ###
 
 NRUNS=$1
-SERENAPROGRAMS=collatz_serena random
+SERENAPROGRAMS=(collatz_serena random)
 
 # Build ASC
 make mrproper

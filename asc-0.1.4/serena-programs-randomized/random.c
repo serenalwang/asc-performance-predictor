@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
   int randindex = rand() % nrand;
 
-  printf("%d", randarray[randindex]);
+  printf("%d\n", randarray[randindex]);
   
   return randarray[randindex]; 
 }

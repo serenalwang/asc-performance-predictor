@@ -10,6 +10,7 @@ BENCHMARKS = nops counter loop collatz factor 3sum warshall
 SERENAPROGRAMS = collatz_serena random
 # $(# shell seq 1 ${# NPROGRAMS})
 SERENAPROGRAMSDIR = serena-programs-randomized
+DATADIR = ascfeatures
 
 ifeq ($(ASAN),1)
 CFLAGS += -fno-omit-frame-pointer -fsanitize=address
@@ -82,6 +83,9 @@ clean:
 	$(RM) $(wildcard *.a *.o */*.o *.[ch]~ */*.[ch]~ *.so maps/parser.[ch] asc)
 
 mrproper: clean
-	$(RM) $(wildcard *.net *.train *.stdout *.log *.csv $(BENCHMARKS) $(SERENAPROGRAMS))
+	$(RM) $(wildcard *.net *.train *.stdout *.log $(BENCHMARKS) $(SERENAPROGRAMS))
 
-.PHONY: all debug release benchmarks serenaprograms clean mrproper
+clean-data: mrproper
+	$(RM) -r $(wildcard */*.csv $(DATADIR))
+
+.PHONY: all debug release benchmarks serenaprograms clean mrproper clean-data

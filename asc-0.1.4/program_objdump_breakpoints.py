@@ -35,7 +35,7 @@ bps = extract_jmp_bps(objdump_string)
 # Add the program name to the first column
 outline = bps
 # Write objdump breakpoints to outfile
-outfile = [sys.argv[1]]
+outfile = sys.argv[1]
 with open(outfile, 'ab') as csvfile:
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)

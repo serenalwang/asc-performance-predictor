@@ -16,7 +16,7 @@ NRUNS=$3
 # Seed the bash random number generator with the current process id
 RANDOM=$$
 # Max number of rounds per run
-MAXROUNDS="1000"
+MAXROUNDS="50"
 OUTDIR=ascfeatures
 # Store results in output csv file
 OUTFILE=$PROGNAME-$IP-asc.csv
