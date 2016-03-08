@@ -1,7 +1,6 @@
 ###
 # Extracts all breakpoints from an objdump file.
-# Usage: objdump -d <program binary> |
-# python getallips.py <outfile>
+# Usage: objdump -d <program binary> | python getallips.py <outfile>
 # Writes output as a line to outfile csv.
 ###
 
@@ -16,7 +15,7 @@ if len(sys.argv) < 2:
 
 # Extracts all ip values from an entire objdump output
 def extract_all_ips(objdump_string):
-    ips = set()
+    ips = []
     start_str = "<_start>:"
     ip_divider_str = "\n  "
     # Initialize start of listed ips
@@ -30,13 +29,12 @@ def extract_all_ips(objdump_string):
         if ip_end == -1:
             break
         ip = objdump_string[:ip_end]
-        ips.add(ip)
+        ips.append(ip)
         ip_start = objdump_string.find(ip_divider_str)
     return ips
 
 objdump_string = sys.stdin.read()
 bps = extract_all_ips(objdump_string)
-print bps
 # Add the program name to the first column
 outline = bps
 # Write objdump breakpoints to outfile
