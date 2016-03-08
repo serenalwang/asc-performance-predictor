@@ -6,13 +6,17 @@
 # Must already be compiled: ASC, program binary
 # Saves output to ascfeatures/[progname]-[ip]-asc.csv
 #
-# USAGE: bash runprogram.sh <program binary> <IP value> <number of runs> 
+# USAGE: bash runprogip.sh <program binary> <IP value> <number of inputs>
+#        <number of runs per input> 
 ###
 
 # Number of serena programs to benchmark with ASC
 PROGNAME=$1
 IP=$2
-NRUNS=$3
+# Number of unique inputs to run
+NINPUTS=$3
+# Number of times to run with one input
+NRUNS=$4
 # Seed the bash random number generator with the current process id
 RANDOM=$$
 # Max number of rounds per run
@@ -21,18 +25,27 @@ OUTDIR=ascfeatures
 # Store results in output csv file
 OUTFILE=$PROGNAME-$IP-asc.csv
 
-# Clear output file
 mkdir -p $OUTDIR
-echo "prog_name,IP,runsdone,round,hamming,mips,error" > $OUTDIR/$OUTFILE
+# Clear output file
+rm -f $OUTDIR/$OUTFILE
+# Clear previous .net file
+rm -f $PROGNAME.net
 
-echo RUNNING $PROGNAME
+echo RUNNING $PROGNAME FOR IP $IP
 # Local variable - number of runs that have already been completed
-RUNSDONE="0"
-while [ $RUNSDONE -lt $NRUNS ];
+INPUTSDONE="0"
+while [ $INPUTSDONE -lt $NINPUTS ];
 do
-    RUNSDONE=$[$RUNSDONE+1]
-    echo starting run $RUNSDONE
-    echo random seed $RANDOM
-    ./asc -a $IP -n $MAXROUNDS $PROGNAME $RANDOM | python program_asc_features.py $PROGNAME $IP $RUNSDONE $OUTDIR/$OUTFILE
-    echo $RUNSDONE runs completed
+    INPUTSDONE=$[$INPUTSDONE+1]
+    echo starting input $INPUTSDONE
+    INPUT=$RANDOM
+    echo random input $INPUT
+    RUNSDONE="0"
+    while [ $RUNSDONE -lt $NRUNS ];
+    do
+        RUNSDONE=$[$RUNSDONE+1]
+	echo starting run $RUNSDONE for input $INPUT
+	./asc -a $IP -n $MAXROUNDS $PROGNAME.net $PROGNAME $INPUT | python program_asc_features.py $PROGNAME $IP $INPUT $RUNSDONE $OUTDIR/$OUTFILE
+    done
+    echo $INPUTSDONE inputs completed
 done 

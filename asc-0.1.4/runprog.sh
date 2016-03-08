@@ -13,7 +13,7 @@ NRUNS=$2
 BPFILE=$PROGNAME-ips.csv
 
 # Get all IPs from objdump
-objdump -d $PROGNAME | python program_objdump_breakpoints.py $BPFILE
+objdump -d $PROGNAME | python getallips.py $BPFILE
 
 # Read all lines from BPFILE
 IFS='' read -r line < $BPFILE
