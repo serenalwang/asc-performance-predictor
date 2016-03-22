@@ -71,10 +71,10 @@ def extract_all_ips(objdump_string):
         ip_start = objdump_string.find(ip_divider_str)
     return ips, jmp_targets
 
-# objdump_string = sys.stdin.read()
+objdump_string = sys.stdin.read()
 ips_dict, jmp_target_set = extract_all_ips(objdump_string)
-print ips_dict
-print jmp_target_set
+#print ips_dict
+#print jmp_target_set
 
 def add_jmp_features(ips, jmp_targets):
     ips_with_jmp_features = {}
@@ -95,12 +95,12 @@ def add_jmp_features(ips, jmp_targets):
     return ips_with_jmp_features
 
 all_features_dict = add_jmp_features(ips_dict, jmp_target_set)
-print all_features_dict
+#print all_features_dict
 
 # Write objdump breakpoints to outfile
 outfile = sys.argv[1]
 with open(outfile, 'ab') as csvfile:
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    for ip, features in ips_dict.items():
+    for ip, features in all_features_dict.items():
        writer.writerow([ip] + features)
