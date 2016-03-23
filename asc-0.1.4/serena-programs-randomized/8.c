@@ -47,7 +47,7 @@ static void randomize(long *S, long n, long N)
     long i;
 
     for (i = 0; i < n; i++) {
-        S[i] = (random() % (2 * N + 1)) - N;
+        S[i] = (rand() % (2 * N + 1)) - N;
 #if 0
         printf("%+ld\n", S[i]);
 #endif
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 		
 	long n = rand() % nmax;
 	long N = rand() % Nmax + n;
-	srandom(seed);
+	srand(seed);
 	
 #if 0
     printf("seed = %d n = %ld N = %ld\n", seed, n, N);

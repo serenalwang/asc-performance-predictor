@@ -18,7 +18,7 @@ void queue_size();
 void check();
 void first_element();
  
-void main()
+void main(int argc, char *argv[])
 {
     int choice, value;
 
@@ -77,7 +77,7 @@ void insert()
  
     temp = (struct node*)malloc(sizeof(struct node));
     //printf("Enter value to be inserted \n");
-    temp->data)=rand();
+    temp->data=rand();
     temp->link = NULL;
     if (rear  ==  NULL)
     {

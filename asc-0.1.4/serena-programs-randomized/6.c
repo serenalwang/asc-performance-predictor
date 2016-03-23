@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include <stdlib.h>
 #define MAX 10000
 
 int validate(char []);
@@ -15,7 +16,7 @@ int main(int argc, char *argv[]){
     }
     srand(sseed);
 	
-	char dividend[size];
+	char dividend[MAX];
 	int size = rand() % 30;	
 	for(int i = 0; i < size; ++i) {
 		dividend[i] = rand() % 10 + '0';

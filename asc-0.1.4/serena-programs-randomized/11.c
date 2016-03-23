@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     unsigned seed = rand();
     int nmax = 1500;
 	int n = rand() % nmax;
-	srandom(seed);
+	srand(seed);
 	
     if (n > MAX_PATH)
         n = MAX_PATH;
