@@ -21,20 +21,30 @@ void first_element();
 void main()
 {
     int choice, value;
- 
-    for (int i = 0; i < 100; i++)
+
+    /* Serena's seed */
+    int sseed;
+    if (argc == 2) {
+      sseed = atol(argv[1]);
+    }
+    srand(sseed);
+
+    int max_actions = 100;
+    int nactions = rand() % max_actions;
+    
+    for (int i = 0; i < nactions; i++)
     {
-        printf("enter the choice \n");
+      /* printf("enter the choice \n");
         printf("1 : create an empty queue \n2 : Insert element\n");
         printf("3 : Dequeue an element \n4 : Check if empty\n");
         printf("5. Get the first element of the queue\n");
         printf("6. Get the number of entries in the queue\n");
-        printf("7. Exit\n");
-        choice = i % 6 + 1;
+        printf("7. Exit\n"); */
+      choice = rand() % 6 + 1;
         switch (choice)    // menu driven program
         {
         case 1: 
-            printf("Empty queue is created with a capacity of %d\n", MAX);
+	  //printf("Empty queue is created with a capacity of %d\n", MAX);
             break;
         case 2:    
             insert();
@@ -54,7 +64,7 @@ void main()
         case 7: 
             exit(0);
         default: 
-            printf("wrong choice\n");
+	  //printf("wrong choice\n");
             break;
         }
     }
@@ -66,8 +76,8 @@ void insert()
     struct node *temp;
  
     temp = (struct node*)malloc(sizeof(struct node));
-    printf("Enter value to be inserted \n");
-    *(&temp->data)=495;
+    //printf("Enter value to be inserted \n");
+    temp->data)=rand();
     temp->link = NULL;
     if (rear  ==  NULL)
     {

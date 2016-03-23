@@ -15,25 +15,35 @@ void generate(struct node **, int);
 int search(struct node *, int);
 void delete(struct node **);
  
-int main()
+int main(int argc, char *argv[])
 {
+    /* Serena's seed */
+	int sseed;
+    if (argc == 2) {
+      sseed = atol(argv[1]);
+    }
+    srand(sseed);
+
+    int max_actions = 100;
+    int nactions = rand() % max_actions;
+    
     struct node *head = NULL;
     int choice = 0, num, flag = 0, key;
  
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < nactions; i++)
     {
-        printf("\nEnter your choice:\n1. Insert\n2. Search\n3. Exit\nChoice: ");
-        choice = i % 2 + 1;
+      //printf("\nEnter your choice:\n1. Insert\n2. Search\n3. Exit\nChoice: ");
+        choice = rand() % 2 + 1;
         switch(choice)
         {
         case 1: 
-            printf("Enter element to insert: ");
-            *(&num)=248;
+	  //printf("Enter element to insert: ");
+            num = rand() % max_actions;
             generate(&head, num);
             break;
         case 2: 
-            printf("Enter key to search: ");
-            *(&key)=7;
+	  //printf("Enter key to search: ");
+            key = rand() % max_actions;
             flag = search(head, key);
             if (flag)
             {

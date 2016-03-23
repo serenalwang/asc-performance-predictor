@@ -7,7 +7,7 @@ LDFLAGS = -L .
 LDLIBS = -lasc -lssv -lfann -lgsl -lgslcblas -lcrypto -lgmp -lm
 BENCHMARKS = nops counter loop collatz factor 3sum warshall
 #NPROGRAMS= 1
-SERENAPROGRAMS = collatz_serena random
+SERENAPROGRAMS = collatz_random random
 # $(# shell seq 1 ${# NPROGRAMS})
 SERENAPROGRAMSDIR = serena-programs-randomized
 DATADIR = ascfeatures

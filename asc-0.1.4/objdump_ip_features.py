@@ -1,6 +1,7 @@
 ###
 # Extracts all features of individual breakpoints from an objdump file.
-# Usage: objdump -d <program binary> | python objdump_ip_features.py <outfile>
+# Usage: objdump -d <program binary> > <program binary>-objdump.out;
+# python objdump_ip_features.py <program binary>-objdump.out <program name> <outfile>
 # Writes output to outfile csv in the following format:
 # [ip, jmp, call, mov, lea, cmp, inc, mul, add, or, push,
 #  is target of jmp, distance from target of jmp]
@@ -9,7 +10,7 @@ from collections import OrderedDict
 import sys
 import csv
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 4:
     print "not enough arguments"
     quit()
 
@@ -50,6 +51,7 @@ def extract_all_ips(objdump_string):
         ip = objdump_string[:ip_end]
         ip_string = objdump_string[:line_end]
         ip_string_split = ip_string.split("\t")
+        # print ip_string_split
         inst_string = ip_string_split[2]
         inst_string_split = inst_string.split()
         inst = inst_string_split[0]
@@ -71,7 +73,9 @@ def extract_all_ips(objdump_string):
         ip_start = objdump_string.find(ip_divider_str)
     return ips, jmp_targets
 
-objdump_string = sys.stdin.read()
+infile = sys.argv[1]
+inf = open(infile, 'r')
+objdump_string = inf.readline()
 ips_dict, jmp_target_set = extract_all_ips(objdump_string)
 #print ips_dict
 #print jmp_target_set
@@ -98,9 +102,10 @@ all_features_dict = add_jmp_features(ips_dict, jmp_target_set)
 #print all_features_dict
 
 # Write objdump breakpoints to outfile
-outfile = sys.argv[1]
+outfile = sys.argv[2]
+progname = sys.argv[3]
 with open(outfile, 'ab') as csvfile:
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
     for ip, features in all_features_dict.items():
-       writer.writerow([ip] + features)
+       writer.writerow([progname, ip] + features)

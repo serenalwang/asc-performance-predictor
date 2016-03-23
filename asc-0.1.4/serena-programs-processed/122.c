@@ -25,15 +25,25 @@ void insert(node *, node *);
 void inorder(node *);
 void largest(node *);
  
-void main() 
-{ 
+void main(int argc, char *argv[]) 
+{
+  /* Serena's seed */
+    int sseed;
+    if (argc == 2) {
+      sseed = atol(argv[1]);
+    }
+    srand(sseed);
+
+    int max_actions = 100;
+    int nactions = rand() % max_actions;
+    
     node *root = NULL, *new = NULL ; 
     int num = 1;
  
-    printf("Enter the elements of the tree(enter 0 to exit)\n"); 
-    for (int i = 0; i < 100; i++)
+    //printf("Enter the elements of the tree(enter 0 to exit)\n"); 
+    for (int i = 0; i < nactions; i++)
     {     
-        *(&num)=814; 
+        num=rand() % max_actions; 
         new  =  malloc(sizeof(node)); 
         new->left  =  new->right  =  NULL; 
         new->value  =  num; 

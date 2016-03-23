@@ -5,12 +5,12 @@
 # Make sure to run this from within the directory containing the serenaprogram binaries.
 # Assumes that serenaprogram binaries are already built.
 #
-# USAGE: bash get_hexdump_features.sh 
+# USAGE: bash hexdump_1gram_features.sh 
 ###
 
 SERENAPROGRAMS=(collatz_serena random)
 
-OUTFILE=hexdump_features.csv
+OUTFILE=hexdump_1gram_features.csv
 
 # clear outfile
 rm -f $OUTFILE

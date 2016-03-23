@@ -15,20 +15,30 @@ void generate(struct node **, int);
 void DFS(struct node *);
 void delete(struct node **);
  
-int main()
+int main(int argc, char *argv[])
 {
+  /* Serena's seed */
+    int sseed;
+    if (argc == 2) {
+      sseed = atol(argv[1]);
+    }
+    srand(sseed);
+
+    int max_actions = 100;
+    int nactions = rand() % max_actions;
+    
     struct node *head = NULL;
     int choice = 0, num, flag = 0, key;
  
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < nactions; i++)
     {
         printf("\nEnter your choice:\n1. Insert\n2. Perform DFS Traversal\n3. Exit\nChoice: ");
-        choice = i % 2 + 1;
+        choice = rand() % 2 + 1;;
         switch(choice)
         {
         case 1: 
-            printf("Enter element to insert: ");
-            *(&num)=125;
+	  //printf("Enter element to insert: ");
+            num = rand() % max_actions;
             generate(&head, num);
             break;
         case 2: 
@@ -36,7 +46,7 @@ int main()
             break;
         case 3: 
             delete(&head);
-            printf("Memory Cleared\nPROGRAM TERMINATED\n");
+            //printf("Memory Cleared\nPROGRAM TERMINATED\n");
             break;
         default: 
             printf("Not a valid input, try again\n");

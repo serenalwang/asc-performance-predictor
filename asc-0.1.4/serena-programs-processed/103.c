@@ -20,27 +20,37 @@ void queuesize();
  
 int count = 0;
  
-void main()
+void main(int argc, char *argv[])
 {
     int no, ch, e;
- 
-    printf("\n 1 - Enque");
+
+    /* Serena's seed */
+    int sseed;
+    if (argc == 2) {
+      sseed = atol(argv[1]);
+    }
+    srand(sseed);
+
+    int max_actions = 100;
+    int nactions = rand() % max_actions;
+    
+    /* printf("\n 1 - Enque");
     printf("\n 2 - Deque");
     printf("\n 3 - Front element");
     printf("\n 4 - Empty");
     printf("\n 5 - Exit");
     printf("\n 6 - Display");
-    printf("\n 7 - Queue size");
+    printf("\n 7 - Queue size"); */
     create();
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < nactions; i++)
     {
         printf("\n Enter choice : ");
-        ch = i % 7 + 1;
+        ch = rand() % 7 + 1;
         switch (ch)
         {
         case 1:
             printf("Enter data : ");
-            *(&no)=243;
+            no=rand() % max_actions;
             enq(no);
             break;
         case 2:
