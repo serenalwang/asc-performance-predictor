@@ -3,19 +3,21 @@
 ###
 # Runs all programs with all IPs. 
 # Make sure to run this from within the directory containing the ASC binary.
-# Assumes that all IPs are already written in BPFILE
 #
-# USAGE: bash runprogs.sh <number of runs> 
+# USAGE: bash runprogs.sh <number of inputs> <number of runs> 
 ###
 
-NRUNS=$1
-SERENAPROGRAMS=(collatz_serena random)
+NINPUTS=$1
+NRUNS=$2
+NPROGRAMS=11
+SERENAPROGRAMS=$(seq 1 ${NPROGRAMS})
 
 # Build ASC
-make mrproper
-make
+#make mrproper
+#make
 
 for program in $SERENAPROGRAMS
 do
-    bash runprog.sh $program $NRUNS
+    echo running program $program
+    bash runprog.sh $program $NINPUTS $NRUNS
 done 

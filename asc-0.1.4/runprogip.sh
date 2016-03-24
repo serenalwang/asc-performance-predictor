@@ -20,7 +20,7 @@ NRUNS=$4
 # Seed the bash random number generator with the current process id
 RANDOM=$$
 # Max number of rounds per run
-MAXROUNDS="10"
+MAXROUNDS="50"
 OUTDIR=ascfeatures
 mkdir -p $OUTDIR
 
@@ -44,9 +44,7 @@ do
     while [ $INPUTSDONE -lt $NINPUTS ];
     do
 	INPUTSDONE=$[$INPUTSDONE+1]
-	echo starting input $INPUTSDONE
 	INPUT=$RANDOM
-	echo random input $INPUT
 	RUNSDONE="0"
 	while [ $RUNSDONE -lt $EPOCHRUNS ];
 	do
