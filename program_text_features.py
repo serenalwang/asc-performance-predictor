@@ -8,11 +8,11 @@ import csv
 
 if len(sys.argv) < 2:
     print "No arguments passed in."
-    print "USAGE: program_text_features.py <program>"
+    print "USAGE: program_text_features.py <full path to program text>"
     print "Note: make sure program_text_features.py is in the same directory as the program files if using relative paths."
     exit()
 
-SERENAPROGRAMSDIR = "asc-0.1.4/serena-programs-processed"
+SERENAPROGRAMSDIR = "asc-0.1.4/serena-programs-randomized"
     
 # Returns a list of features for the given program
 def get_features(program):
