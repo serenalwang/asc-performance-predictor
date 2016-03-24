@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < nrand; i++) {
     randarray[i] = rand();
   }
-
+  
   int randindex = rand() % nrand;
 
   printf("%d\n", randarray[randindex]);

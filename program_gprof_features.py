@@ -8,6 +8,7 @@
 #  num recursive calls]
 # Returns a list of all  0s if gprof doesn't produce any output.
 # Writes output as a line to outfile csv.
+# Usage: 
 ###
 
 import numpy as np
@@ -34,7 +35,7 @@ def extract_flatprofile_features(flatprofile_string):
         if current_percent_time > highest_percent_time:
             highest_percent_time = current_percent_time
         function_times.append(float(data[2]))
-        if data[3] != "main":
+        if data[3] != "main" and data[3] !="frame_dummy":
             function_calls.append(int(data[3]))
 
     total_time = np.sum(function_times)

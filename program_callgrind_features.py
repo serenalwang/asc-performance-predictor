@@ -6,7 +6,9 @@
 # http://web.stanford.edu/class/cs107/guide_callgrind.html
 # Writes output as a line to outfile csv.
 #
-# USAGE: <program name>-callgrind.out | program_callgrind_features.py <program name>
+# To generate callgrind output file: valgrind --tool=callgrind --simulate-cache=yes ./<program name> <program input> 2> <program name>-valgrind.out
+#
+# USAGE: cat <program name>-callgrind.out | program_callgrind_features.py <program name>
 ###
 import sys
 import csv
