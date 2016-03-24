@@ -1,77 +1,139 @@
-#include <stdlib.h>
+/*
+ * C Program to Traverse the Tree Non-Recursively
+ */
 #include <stdio.h>
-
-static void kernel_floyd_warshall(int n, double path[n][n])
+#include <stdlib.h>
+ 
+struct node
 {
-    int i, j, k;
-
-    for (k = 0; k < n; k++) {
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
-                path[i][j] = path[i][j] < path[i][k] + path[k][j] ?
-                    path[i][j] : path[i][k] + path[k][j];
-            }
-        }
-    }
-}
-
-static void print_array(int n, double path[n][n])
-{
-    int i, j;
-
-    for (i = 0; i < n; i++) {
-        for (j = 0; j < n; j++) {
-            printf("%0.2lf ", path[i][j]);
-        }
-
-        printf("\n");
-    }
-
-    printf("\n");
-}
-
-static void init_array(int n, double path[n][n])
-{
-    int i, j;
-
-    for (i = 0; i < n; i++)
-        for (j = 0; j < n; j++)
-            path[i][j] = ((double) (i + 1) * (j + 1)) / n;
-}
-
-#define MAX_PATH 4096
-
-static double path[MAX_PATH][MAX_PATH];
-
+    int a;
+    struct node *left;
+    struct node *right;
+};
+ 
+void generate(struct node **, int);
+int search(struct node *, int);
+void delete(struct node **);
+ 
 int main(int argc, char *argv[])
 {
-	/* Serena's seed */
+    /* Serena's seed */
 	int sseed;
     if (argc == 2) {
       sseed = atol(argv[1]);
     }
     srand(sseed);
-	
-    /* Default parameters.  */
-    unsigned seed = rand();
-    int nmax = 1500;
-	int n = rand() % nmax;
-	srand(seed);
-	
-    if (n > MAX_PATH)
-        n = MAX_PATH;
 
-    init_array(n, path);
-
-#if 0
-    print_array(n, path);
-#endif
-
-    kernel_floyd_warshall(n, path);
-
-#if 0
-    print_array(n, path);
-#endif
-
+    int max_actions = 100;
+    int nactions = rand() % max_actions;
+    
+    struct node *head = NULL;
+    int choice = 0, num, flag = 0, key;
+ 
+    for (int i = 0; i < nactions; i++)
+    {
+      //printf("\nEnter your choice:\n1. Insert\n2. Search\n3. Exit\nChoice: ");
+        choice = rand() % 2 + 1;
+        switch(choice)
+        {
+        case 1: 
+	  //printf("Enter element to insert: ");
+            num = rand() % max_actions;
+            generate(&head, num);
+            break;
+        case 2: 
+	  //printf("Enter key to search: ");
+            key = rand() % max_actions;
+            flag = search(head, key);
+            if (flag)
+            {
+                printf("Key found in tree\n");
+            }
+            else
+            {
+                printf("Key not found\n");
+            }
+            break;
+        case 3: 
+            delete(&head);
+            //printf("Memory Cleared\nPROGRAM TERMINATED\n");
+            break;
+        default: printf("Not a valid input, try again\n");
+        }
+    };
     return 0;
+}
+ 
+void generate(struct node **head, int num)
+{
+    struct node *temp = *head, *prev = *head;
+ 
+    if (*head == NULL)
+    {
+        *head = (struct node *)malloc(sizeof(struct node));
+        (*head)->a = num;
+        (*head)->left = (*head)->right = NULL;
+    }
+    else
+    {
+        while (temp != NULL)
+        {
+            if (num > temp->a)
+            {
+                prev = temp;
+                temp = temp->right;
+            }
+            else
+            {
+                prev = temp;
+                temp = temp->left;
+            }
+        }
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->a = num;
+        if (num >= prev->a)
+        {
+            prev->right = temp;
+        }
+        else
+        {
+            prev->left = temp;
+        }
+    }
+}
+ 
+int search(struct node *head, int key)
+{
+    while (head != NULL)
+    {
+        if (key > head->a)
+        {
+            head = head->right;
+        }
+        else if (key < head->a)
+        {
+            head = head->left;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+	return 0;
+}
+ 
+void delete(struct node **head)
+{
+    if (*head != NULL)
+    {
+        if ((*head)->left)
+        {
+            delete(&(*head)->left);
+        }
+        if ((*head)->right)
+        {
+            delete(&(*head)->right);
+        }
+        free(*head);
+    }
 }

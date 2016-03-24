@@ -1,106 +1,53 @@
-/*
- * C Program to Find the Largest value in a Tree using 
- * Inorder Traversal
- *                40
- *                /\
- *              20 60
- *              /\  \
- *            10 30 80
- *                   \
- *                   90
+/* Runs the original program collatz.c in kernels folder such that
+ * it automatically randomizes input each time.
  */
+
+/* Take any natural number i.  If i is even, divide it by 2 to get i / 2.
+ * If i is odd, multiply it by 3 and add 1 to obtain 3i + 1.
+ * Repeat the process indefinitely, halting if you reach 1 (a fixpoint).
+ * The Collatz conjecture is that no matter what number i you start with,
+ * you will always eventually reach 1.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
- 
-struct btnode
-{ 
-    int value; 
-    struct btnode *left, *right; 
-}; 
-typedef struct btnode node;
- 
-/* function prototypes */
- 
-void insert(node *, node *);
-void inorder(node *);
-void largest(node *);
- 
-void main(int argc, char *argv[]) 
-{
-  /* Serena's seed */
-    int sseed;
-    if (argc == 2) {
-      sseed = atol(argv[1]);
-    }
-    srand(sseed);
 
-    int max_actions = 100;
-    int nactions = rand() % max_actions;
-    
-    node *root = NULL, *new = NULL ; 
-    int num = 1;
- 
-    //printf("Enter the elements of the tree(enter 0 to exit)\n"); 
-    for (int i = 0; i < nactions; i++)
-    {     
-        num=rand() % max_actions; 
-        new  =  malloc(sizeof(node)); 
-        new->left  =  new->right  =  NULL; 
-        new->value  =  num; 
-        if (root  ==  NULL) 
-            root = new; 
-        else 
-        { 
-            insert(new, root); 
-        } 
-    }
-    printf("elements in a tree in inorder are\n"); 
-    inorder(root);
-    largest(root);
-}
- 
-/* displaying nodes of a tree using inorder */
- 
-void inorder(node *root)
+static unsigned long step(unsigned long j)
 {
-    if (root != NULL)
-    {
-        inorder(root->left);
-        printf("%d -> ", root->value);
-        inorder(root->right);
-    }
+    register unsigned long k = j;
+
+    if ((k % 2) == 0)
+        j = j / 2;
+    else
+        j = 3*j + 1;
+
+    return j;
 }
- 
-/* inserting nodes into the tree */
- 
-void insert(node * new , node *root) 
-{ 
-    if (new->value > root->value) 
-    {     
-        if (root->right  ==  NULL) 
-            root->right  =  new; 
-        else 
-            insert (new, root->right); 
-    } 
-    if (new->value < root->value) 
-    {     
-        if (root->left  == NULL) 
-            root->left = new; 
-        else 
-            insert(new, root->left); 
-    }     
-}
- 
-/* finding largest node in a tree */
-void largest(node *root)
+
+int main(int argc, char *argv[])
 {
-    if (root->right  == NULL) 
-    {
-        printf("largest element is %d", root->value);
+    register unsigned long i;
+    register unsigned long j;
+    int seed;
+    if (argc == 2) {
+      seed = atol(argv[1]);
     }
-    while (root != NULL && root->right != NULL)
-    {
-        root = root->right;
+    srand(seed);
+
+    int max = 10000000;
+    unsigned long lo = rand() % max;
+    unsigned long hi = (rand() % (max - lo)) + lo;
+    printf("lo: %lu, hi: %lu \n", lo, hi);
+
+    /* Search for a counterexample to the Collatz conjecture.  */
+    for (i = lo; i < hi; i++) {
+        for (j = i; j > 1; j = step(j)) {
+            /* This may be an infinite loop.  */
+#if 0
+            printf("%7lu\t%7lu\n", i, j);
+#endif
+        }
     }
-    printf("\nlargest value is %d\n", root->value);
+
+    return i;
 }

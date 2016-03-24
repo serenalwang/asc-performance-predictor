@@ -106,10 +106,10 @@ all_features_dict = add_jmp_features(ips_dict, jmp_target_set)
 #print all_features_dict
 
 # Write objdump breakpoints to outfile
-outfile = sys.argv[2]
-progname = sys.argv[3]
+progname = sys.argv[2]
+outfile = sys.argv[3]
 with open(outfile, 'ab') as csvfile:
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
     for ip, features in all_features_dict.items():
-       writer.writerow([progname, ip] + features)
+        writer.writerow([progname, ip] + features)

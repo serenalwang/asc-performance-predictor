@@ -1,17 +1,47 @@
-#include <math.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-static long invert(long n)
+static void kernel_floyd_warshall(int n, double path[n][n])
 {
-    register long p;
+    int i, j, k;
 
-    for (p = 3; p * p <= n; p += 2)
-        if ((n % p) == 0)
-            return p;
-
-    return n;
+    for (k = 0; k < n; k++) {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                path[i][j] = path[i][j] < path[i][k] + path[k][j] ?
+                    path[i][j] : path[i][k] + path[k][j];
+            }
+        }
+    }
 }
+
+static void print_array(int n, double path[n][n])
+{
+    int i, j;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%0.2lf ", path[i][j]);
+        }
+
+        printf("\n");
+    }
+
+    printf("\n");
+}
+
+static void init_array(int n, double path[n][n])
+{
+    int i, j;
+
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            path[i][j] = ((double) (i + 1) * (j + 1)) / n;
+}
+
+#define MAX_PATH 4096
+
+static double path[MAX_PATH][MAX_PATH];
 
 int main(int argc, char *argv[])
 {
@@ -22,17 +52,26 @@ int main(int argc, char *argv[])
     }
     srand(sseed);
 	
-    long p, n = 9223371994482243049;
+    /* Default parameters.  */
+    unsigned seed = rand();
+    int nmax = 1500;
+	int n = rand() % nmax;
+	srand(seed);
+	
+    if (n > MAX_PATH)
+        n = MAX_PATH;
 
-    n = rand() % n;
+    init_array(n, path);
 
 #if 0
-    printf("n = %ld\n", n);
+    print_array(n, path);
 #endif
-    
-    p = invert(n);
 
-    printf("%ld divides %ld\n", p, n);
+    kernel_floyd_warshall(n, path);
 
-    return p;
+#if 0
+    print_array(n, path);
+#endif
+
+    return 0;
 }

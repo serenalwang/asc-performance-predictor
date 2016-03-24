@@ -1,66 +1,28 @@
-#include<stdio.h>
-#include<string.h>
+/* A simple loop kernel.  */
+
+#include <stdio.h>
 #include <stdlib.h>
-#define MAX 10000
 
-int validate(char []);
-int modulerDivision(char[],unsigned long);
-
-
-int main(int argc, char *argv[]){
-	
-	/* Serena's seed */
+int main(int argc, char *argv[])
+{
+	/* Serena's seed  */
 	int sseed;
     if (argc == 2) {
       sseed = atol(argv[1]);
     }
     srand(sseed);
+		
+    /* Default parameters.  */
+    register long i, lo = 0, hi = 0;
+	long lomax = 100000000000;
+	long himax = 100000000000;
 	
-	char dividend[MAX];
-	int size = rand() % 30;	
-	for(int i = 0; i < size; ++i) {
-		dividend[i] = rand() % 10 + '0';
-	}
-    unsigned long int divisor,remainder;
-    unsigned long int divisormax = 1 << size;	
-	divisor = rand() % divisormax;
-	
-    if(validate(dividend))
-         return 0;
+	lo = rand() % lomax;
+	hi = lo + rand() % himax;
 
-    remainder = modulerDivision(dividend,divisor);
-
-    return 0;
-}
-
-int validate(char num[]){
-    int i=0;
-
-    while(num[i]){
-         if(num[i] < 48 || num[i]> 57){
-             printf("Invalid positive integer: %s",num);
-             return 1;
-         }
-         i++;
+    for (i = lo; i < hi || hi < 0; i++) {
+        /* An empty loop.  */
     }
 
     return 0;
-}
-
-int modulerDivision(char dividend[],unsigned long divisor){
-   
-    unsigned long temp=0;
-    int i=0;
-
-    while(dividend[i]){
-        
-         temp = temp*10 + (dividend[i] -48);
-         if(temp>=divisor){
-             temp = temp % divisor;
-         }
-   
-         i++;
-    }
-
-    return temp;
 }
