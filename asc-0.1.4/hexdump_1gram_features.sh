@@ -8,7 +8,8 @@
 # USAGE: bash hexdump_1gram_features.sh 
 ###
 
-SERENAPROGRAMS=(collatz_random random)
+NPROGRAMS=7
+SERENAPROGRAMS=$(seq 1 ${NPROGRAMS})
 
 OUTFILE=hexdump_1gram_features.csv
 
@@ -17,6 +18,6 @@ rm -f $OUTFILE
 
 for program in $SERENAPROGRAMS
 do
-    hexdump -C $program > $program-dump.out; python hexdump_1gram_features.py $program-dump.out $program $OUTFILE
-    rm $program-dump.out
+    hexdump -C $program > $program-hexdump.out; python hexdump_1gram_features.py $program-hexdump.out $program $OUTFILE
+    rm $program-hexdump.out
 done 
