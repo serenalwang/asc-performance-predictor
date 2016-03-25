@@ -12,7 +12,7 @@ _start:
 
     /* Align stack pointer as per ABI.  */
     and $0xfffffffffffffff0, %rsp
-
+	
     /* Jump into C entry point.  */
     call main
 

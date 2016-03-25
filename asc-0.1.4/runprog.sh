@@ -14,8 +14,8 @@ NRUNS=$3
 BPFILE=$PROGNAME-ips.csv
 
 # Get all IPs from objdump
-rm -f $BPFILE
-objdump -d $PROGNAME | python getallips.py $BPFILE
+# rm -f $BPFILE
+# objdump -d $PROGNAME | python getallips.py $BPFILE
 
 # Read all lines from BPFILE
 echo Getting IPs for program $PROGNAME

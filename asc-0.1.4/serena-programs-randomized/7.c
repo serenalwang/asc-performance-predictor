@@ -54,9 +54,9 @@ int main(int argc, char *argv[])
 	
     /* Default parameters.  */
     unsigned seed = rand();
-    int nmax = 1500;
-	int n = rand() % nmax;
-	srand(seed);
+    int nmax = 50;
+    int n = rand() % nmax;
+    srand(seed);
 	
     if (n > MAX_PATH)
         n = MAX_PATH;

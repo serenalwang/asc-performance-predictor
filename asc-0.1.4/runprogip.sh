@@ -20,7 +20,7 @@ NRUNS=$4
 # Seed the bash random number generator with the current process id
 RANDOM=$$
 # Max number of rounds per run
-MAXROUNDS="50"
+MAXROUNDS="10"
 OUTDIR=ascfeatures
 mkdir -p $OUTDIR
 
