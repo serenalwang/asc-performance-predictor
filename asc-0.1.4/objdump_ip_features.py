@@ -3,7 +3,7 @@
 # Usage: objdump -d <program binary> > <program binary>-objdump.out;
 # python objdump_ip_features.py <program binary>-objdump.out <program name> <outfile>
 # Writes output to outfile csv in the following format:
-# [ip, jmp, call, mov, lea, cmp, inc, mul, add, or, push,
+# [program name, ip, jmp, call, mov, lea, cmp, inc, mul, add, or, push,
 #  is target of jmp, distance from target of jmp]
 ###
 from collections import OrderedDict

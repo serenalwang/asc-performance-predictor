@@ -1,7 +1,7 @@
 ###
 # Extracts features from callgrind output.
 # Outputs a list of features of the following format:
-# [Ir, Dr, I1mr, d1mr, D1mw, ILmr, DLmr, DLmw, I1missrate, D1missread, D1misswrite, LLmissrate]
+# [Ir, Dr, Dw, I1mr, d1mr, D1mw, ILmr, DLmr, DLmw, I1missrate, D1missread, D1misswrite, LLmissrate]
 # The interpretation of these features can be found here:
 # http://web.stanford.edu/class/cs107/guide_callgrind.html
 # Writes output as a line to outfile csv.
