@@ -17,4 +17,7 @@ To extract all ASC cross entropy loss values for C programs (target values):
 5. To run all programs with all IP values of each program: 
 	$ bash runprogs.sh <number of inputs> <number of runs>
 	
+	edit
+	
+	
 
