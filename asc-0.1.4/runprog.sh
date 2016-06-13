@@ -1,11 +1,14 @@
 #!/bin/bash
 
 ###
-# Runs one program with all IPs.
-# Make sure to run this from within the directory containing the ASC binary.
+# Extracts all possible IP values of a program from objdump, and 
+# runs the program with all IPs.
+# Make sure to run this from within the directory containing the 
+# ASC binary.
 # Must already be compiled: ASC, program binary
 #
-# USAGE: bash runprog.sh <program name> <number of inputs> <number of runs per input> 
+# USAGE: bash runprog.sh <program name> <number of inputs> 
+# <number of runs per input> 
 ###
 
 PROGNAME=$1
@@ -14,8 +17,8 @@ NRUNS=$3
 BPFILE=$PROGNAME-ips.csv
 
 # Get all IPs from objdump
-# rm -f $BPFILE
-# objdump -d $PROGNAME | python getallips.py $BPFILE
+rm -f $BPFILE
+objdump -d $PROGNAME | python getallips.py $BPFILE
 
 # Read all lines from BPFILE
 echo Getting IPs for program $PROGNAME

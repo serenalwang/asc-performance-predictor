@@ -6,8 +6,8 @@
 # Must already be compiled: ASC, program binary
 # Saves output to ascfeatures/[progname]-[ip]-asc.csv
 #
-# USAGE: bash runprogip.sh <program binary> <IP value> <number of inputs>
-#        <number of runs per input> 
+# USAGE: bash runprogip.sh <program binary> <IP value> 
+#        <number of inputs> <number of runs per input> 
 ###
 
 # Number of serena programs to benchmark with ASC
